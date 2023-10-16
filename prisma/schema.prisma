@@ -1,0 +1,165 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator nestgraphql {
+  provider             = "prisma-nestjs-graphql"
+  output               = "../src/@generated"
+  combineScalarFilters = true
+  noAtomicOperations   = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 Int                @id @default(autoincrement())
+  email              String             @unique
+  name               String
+  password           String
+  created_at         DateTime           @default(now())
+  updated_at         DateTime           @updatedAt
+  shopping_lists     ShoppingListUser[]
+  own_shopping_lists ShoppingList[]
+  tokens             Token[]
+  role               Role?              @relation(fields: [role_id], references: [id])
+  role_id            Int?
+  avatar             File?              @relation(fields: [avatar_id], references: [id])
+  avatar_id          Int?
+
+  @@map(name: "users")
+}
+
+model Token {
+  id            Int      @id @default(autoincrement())
+  access_token  String   @unique
+  refresh_token String   @unique
+  user          User     @relation(fields: [user_id], references: [id])
+  user_id       Int
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@map(name: "tokens")
+}
+
+model Role {
+  id          Int              @id @default(autoincrement())
+  name        String
+  slug        String           @unique
+  users       User[]
+  created_at  DateTime         @default(now())
+  updated_at  DateTime         @updatedAt
+  permissions PermissionRole[]
+
+  @@map(name: "roles")
+}
+
+model PermissionRole {
+  role_id       Int
+  permission_id Int
+  role          Role       @relation(fields: [role_id], references: [id])
+  permission    Permission @relation(fields: [permission_id], references: [id])
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+
+  @@id([role_id, permission_id])
+  @@map(name: "permission_roles")
+}
+
+model File {
+  id         Int        @id @default(autoincrement())
+  name       String
+  file_name  String
+  size       Float
+  url        String
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  users      User[]
+  categories Category[]
+
+  @@map(name: "files")
+}
+
+model Permission {
+  id         Int              @id @default(autoincrement())
+  name       String
+  slug       String           @unique
+  type       PermissionType
+  created_at DateTime         @default(now())
+  updated_at DateTime         @updatedAt
+  roles      PermissionRole[]
+
+  @@map(name: "permissions")
+}
+
+model Category {
+  id                  Int                @id @default(autoincrement())
+  name                String
+  icon                File               @relation(fields: [icon_id], references: [id])
+  icon_id             Int
+  created_at          DateTime           @default(now())
+  updated_at          DateTime           @updatedAt
+  shopping_list_items ShoppingListItem[]
+
+  @@map(name: "categories")
+}
+
+model ShoppingListUser {
+  user_id          Int
+  shopping_list_id Int
+  user             User         @relation(fields: [user_id], references: [id])
+  shopping_list    ShoppingList @relation(fields: [shopping_list_id], references: [id])
+  created_at       DateTime     @default(now())
+  updated_at       DateTime     @updatedAt
+
+  @@id([user_id, shopping_list_id])
+  @@map(name: "shopping_list_users")
+}
+
+model ShoppingListItem {
+  id          Int      @id @default(autoincrement())
+  name        String
+  quantity    Float
+  unit        Unit     @relation(fields: [unit_id], references: [id])
+  unit_id     Int
+  category    Category @relation(fields: [category_id], references: [id])
+  category_id Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map(name: "shopping_list_items")
+}
+
+model ShoppingList {
+  id           Int                @id @default(autoincrement())
+  name         String
+  color        String
+  author       User               @relation(fields: [author_id], references: [id])
+  author_id    Int
+  responsibles ShoppingListUser[]
+  created_at   DateTime           @default(now())
+  updated_at   DateTime           @updatedAt
+
+  @@map(name: "shopping_lists")
+}
+
+model Unit {
+  id                  Int                @id @default(autoincrement())
+  name                String
+  value               String
+  created_at          DateTime           @default(now())
+  updated_at          DateTime           @updatedAt
+  shopping_list_items ShoppingListItem[]
+
+  @@map(name: "units")
+}
+
+enum PermissionType {
+  preview
+  editable
+}

@@ -1,0 +1,51 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Token {
+  id: Float!
+  access_token: String!
+  refresh_token: String!
+  users: [User!]!
+  created_at: String!
+  updated_at: String!
+}
+
+type User {
+  id: Float!
+  email: String!
+  name: String!
+  password: String!
+  tokens: [Token!]!
+  created_at: String!
+  updated_at: String!
+}
+
+type AuthResult {
+  user: User!
+  access_token: String!
+  refresh_token: String!
+}
+
+type Query {
+  getUser(id: Float!, email: String!): User!
+  getUsers(skip: Float, take: Float, orderBy: String): [User!]!
+}
+
+type Mutation {
+  login(user: LoginInput!): AuthResult!
+  register(user: RegisterInput!): AuthResult!
+  logout(refreshToken: String!): String!
+  refresh(refreshToken: String!): AuthResult!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input RegisterInput {
+  email: String!
+  name: String!
+  password: String!
+}
