@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+
 import { PrismaService } from '@/shared/database/prisma.service';
 
 @Injectable()
@@ -21,5 +22,9 @@ export class UserRepository {
 
   updateUser(where: Prisma.UserWhereUniqueInput, data: Prisma.UserUpdateInput) {
     return this.prisma.user.update({ where, data });
+  }
+
+  deleteUser(where: Prisma.UserWhereUniqueInput) {
+    return this.prisma.user.delete({ where });
   }
 }

@@ -1,10 +1,17 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+
 import { UserService } from './user.service';
 import { User } from './user.model';
 import { GetUserArgs } from './dto/args/get-user.args';
-import { GetUsersArgs } from './dto/args/get-users.args';
+import { GetWithPaginationArgs } from '@/shared/dto/args/get-with-pagination.args';
+import { CreateUserInput } from '@/modules/user/dto/inputs/create-user.input';
+import { UpdateUserInput } from '@/modules/user/dto/inputs/update-user.input';
+import { UpdateUserArgs } from '@/modules/user/dto/args/update-user.args';
+import { JwtAuthGuard } from '@/modules/auth/guards/jwt-auth.guard';
 
-@Resolver(() => User)
+@UseGuards(JwtAuthGuard)
+@Resolver('User')
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
@@ -14,7 +21,25 @@ export class UserResolver {
   }
 
   @Query(() => [User])
-  async getUsers(@Args() getUsersArgs: GetUsersArgs) {
+  async getUsers(@Args() getUsersArgs: GetWithPaginationArgs) {
     return this.userService.getUsers(getUsersArgs);
+  }
+
+  @Mutation(() => User)
+  async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
+    return this.userService.createUser(createUserInput);
+  }
+
+  @Mutation(() => User)
+  async updateUser(
+    @Args() updateUserArgs: UpdateUserArgs,
+    @Args('updateUserInput') updateUserInput: UpdateUserInput,
+  ) {
+    return this.userService.updateUser(updateUserArgs, updateUserInput);
+  }
+
+  @Mutation(() => User)
+  async deleteUser(@Args() deleteUserArgs: UpdateUserArgs) {
+    return this.userService.deleteUser(deleteUserArgs);
   }
 }

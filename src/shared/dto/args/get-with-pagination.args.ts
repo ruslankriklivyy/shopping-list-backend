@@ -2,7 +2,7 @@ import { ArgsType, Field } from '@nestjs/graphql';
 import { IsOptional } from 'class-validator';
 
 @ArgsType()
-export class GetUsersArgs {
+export class GetWithPaginationArgs {
   @Field(() => Number, { nullable: true })
   @IsOptional()
   skip?: number;

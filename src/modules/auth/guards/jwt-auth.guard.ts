@@ -1,20 +1,36 @@
-import { Injectable, ExecutionContext } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import {
+  Injectable,
+  ExecutionContext,
+  CanActivate,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { Observable } from 'rxjs';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { AuthenticationError } from '@nestjs/apollo';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
-  getRequest(context: ExecutionContext) {
-    const ctx = GqlExecutionContext.create(context);
-    const request = ctx.getContext().req;
-    return request;
-  }
+export class JwtAuthGuard implements CanActivate {
+  constructor(private jwtService: JwtService) {}
 
-  handleRequest(err: any, user: any, info: any) {
-    if (err || !user) {
-      throw err || new AuthenticationError('Could not authenticate with token');
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const ctx = GqlExecutionContext.create(context);
+    const { req } = ctx.getContext();
+
+    try {
+      const authHeader = req.headers.authorization;
+      const bearer = authHeader.split(' ')[0];
+      const token = authHeader.split(' ')[1];
+
+      if (bearer !== 'Bearer' || !token) {
+        throw new UnauthorizedException({ message: "User doesn't authorized" });
+      }
+
+      req.user = this.jwtService.verify(token);
+      return true;
+    } catch (error) {
+      throw new UnauthorizedException({ message: "User doesn't authorized" });
     }
-    return user;
   }
 }

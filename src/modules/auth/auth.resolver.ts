@@ -17,7 +17,6 @@ export class AuthResolver {
 
   @Mutation(() => AuthResult)
   register(@Args('user') user: RegisterInput) {
-    console.log('user', user);
     return this.authService.register(user);
   }
 

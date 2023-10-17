@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { TokenModule } from './modules/token/token.module';
 import { RoleModule } from './modules/role/role.module';
+import * as process from 'process';
 
 @Module({
   imports: [
@@ -19,7 +20,11 @@ import { RoleModule } from './modules/role/role.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    JwtModule.register({ global: true }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_ACCESS_SECRET || 'SECRET KEY',
+      signOptions: { expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN },
+    }),
     AuthModule,
     UserModule,
     TokenModule,
