@@ -14,7 +14,13 @@ export class ShoppingListItemMinAggregateInput {
     quantity?: true;
 
     @Field(() => Boolean, {nullable:true})
+    is_completed?: true;
+
+    @Field(() => Boolean, {nullable:true})
     unit_id?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    shopping_list_id?: true;
 
     @Field(() => Boolean, {nullable:true})
     category_id?: true;

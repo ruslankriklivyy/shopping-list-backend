@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { FloatFilter } from '../prisma/float-filter.input';
+import { BoolFilter } from '../prisma/bool-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 
 @InputType()
@@ -26,8 +27,14 @@ export class ShoppingListItemScalarWhereInput {
     @Field(() => FloatFilter, {nullable:true})
     quantity?: FloatFilter;
 
+    @Field(() => BoolFilter, {nullable:true})
+    is_completed?: BoolFilter;
+
     @Field(() => IntFilter, {nullable:true})
     unit_id?: IntFilter;
+
+    @Field(() => IntFilter, {nullable:true})
+    shopping_list_id?: IntFilter;
 
     @Field(() => IntFilter, {nullable:true})
     category_id?: IntFilter;

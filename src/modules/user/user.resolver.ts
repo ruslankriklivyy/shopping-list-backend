@@ -9,11 +9,18 @@ import { CreateUserInput } from '@/modules/user/dto/inputs/create-user.input';
 import { UpdateUserInput } from '@/modules/user/dto/inputs/update-user.input';
 import { UpdateUserArgs } from '@/modules/user/dto/args/update-user.args';
 import { JwtAuthGuard } from '@/modules/auth/guards/jwt-auth.guard';
+import { CurrentUser } from '@/decorators/current-user.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Resolver('User')
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
+
+  @Query(() => User)
+  async getCurrentUser(@CurrentUser() currentUser: User) {
+    console.log('CURRENT USER', currentUser);
+    return this.userService.getUser({ id: currentUser.id });
+  }
 
   @Query(() => User)
   async getUser(@Args() getUserArgs: GetUserArgs) {

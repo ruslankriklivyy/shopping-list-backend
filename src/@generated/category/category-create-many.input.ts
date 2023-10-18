@@ -11,8 +11,8 @@ export class CategoryCreateManyInput {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => Int, {nullable:false})
-    icon_id!: number;
+    @Field(() => Int, {nullable:true})
+    icon_id?: number;
 
     @Field(() => Date, {nullable:true})
     created_at?: Date | string;

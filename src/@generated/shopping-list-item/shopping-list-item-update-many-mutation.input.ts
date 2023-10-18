@@ -11,6 +11,9 @@ export class ShoppingListItemUpdateManyMutationInput {
     @Field(() => Float, {nullable:true})
     quantity?: number;
 
+    @Field(() => Boolean, {nullable:true})
+    is_completed?: boolean;
+
     @Field(() => Date, {nullable:true})
     created_at?: Date | string;
 

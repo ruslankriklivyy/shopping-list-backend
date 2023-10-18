@@ -12,10 +12,7 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   public getUser(getUserArgs: GetUserArgs) {
-    return this.userRepository.getUser({
-      id: getUserArgs.id,
-      email: getUserArgs?.email,
-    });
+    return this.userRepository.getUser(getUserArgs);
   }
 
   public getUsers(getUsersArgs: GetWithPaginationArgs) {
@@ -35,5 +32,9 @@ export class UserService {
 
   public deleteUser(deleteUserArgs: UpdateUserArgs) {
     return this.userRepository.deleteUser(deleteUserArgs);
+  }
+
+  public getUserByShoppingList(shoppingListId: number) {
+    return this.userRepository.getUserByShoppingList(shoppingListId);
   }
 }

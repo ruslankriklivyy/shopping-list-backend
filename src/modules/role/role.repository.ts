@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { PrismaService } from '@/shared/database/prisma.service';
+import { Params } from '@/types/general/params';
 
 @Injectable()
 export class RoleRepository {
@@ -11,9 +12,9 @@ export class RoleRepository {
     return this.prisma.role.findFirst({ where });
   }
 
-  getRoles(params: { skip?: number; take?: number; orderBy?: string }) {
+  getRoles(params: Params) {
     const { skip, take } = params;
-    return this.prisma.role.findMany({ skip, take });
+    return this.prisma.role.findMany({ skip, take, include: { users: true } });
   }
 
   createRole(data: Prisma.RoleCreateInput) {

@@ -14,6 +14,9 @@ export class ShoppingListUncheckedUpdateManyWithoutAuthorInput {
     @Field(() => String, {nullable:true})
     color?: string;
 
+    @Field(() => Int, {nullable:true})
+    progress?: number;
+
     @Field(() => Date, {nullable:true})
     created_at?: Date | string;
 

@@ -15,6 +15,12 @@ export class ShoppingListItemUncheckedUpdateWithoutUnitInput {
     @Field(() => Float, {nullable:true})
     quantity?: number;
 
+    @Field(() => Boolean, {nullable:true})
+    is_completed?: boolean;
+
+    @Field(() => Int, {nullable:true})
+    shopping_list_id?: number;
+
     @Field(() => Int, {nullable:true})
     category_id?: number;
 

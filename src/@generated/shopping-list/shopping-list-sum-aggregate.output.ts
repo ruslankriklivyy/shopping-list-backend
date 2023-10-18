@@ -9,5 +9,8 @@ export class ShoppingListSumAggregate {
     id?: number;
 
     @Field(() => Int, {nullable:true})
+    progress?: number;
+
+    @Field(() => Int, {nullable:true})
     author_id?: number;
 }

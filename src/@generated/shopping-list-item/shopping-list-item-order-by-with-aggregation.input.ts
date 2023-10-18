@@ -20,7 +20,13 @@ export class ShoppingListItemOrderByWithAggregationInput {
     quantity?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    is_completed?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     unit_id?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    shopping_list_id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     category_id?: keyof typeof SortOrder;

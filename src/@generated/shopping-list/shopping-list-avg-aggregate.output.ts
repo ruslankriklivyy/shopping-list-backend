@@ -9,5 +9,8 @@ export class ShoppingListAvgAggregate {
     id?: number;
 
     @Field(() => Float, {nullable:true})
+    progress?: number;
+
+    @Field(() => Float, {nullable:true})
     author_id?: number;
 }

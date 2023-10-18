@@ -26,6 +26,9 @@ export class ShoppingListScalarWhereInput {
     color?: StringFilter;
 
     @Field(() => IntFilter, {nullable:true})
+    progress?: IntFilter;
+
+    @Field(() => IntFilter, {nullable:true})
     author_id?: IntFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})

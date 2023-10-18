@@ -16,5 +16,8 @@ export class ShoppingListItemSumAggregate {
     unit_id?: number;
 
     @Field(() => Int, {nullable:true})
+    shopping_list_id?: number;
+
+    @Field(() => Int, {nullable:true})
     category_id?: number;
 }

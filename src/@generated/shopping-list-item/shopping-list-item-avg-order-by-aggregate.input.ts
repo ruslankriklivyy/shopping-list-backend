@@ -15,5 +15,8 @@ export class ShoppingListItemAvgOrderByAggregateInput {
     unit_id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    shopping_list_id?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     category_id?: keyof typeof SortOrder;
 }

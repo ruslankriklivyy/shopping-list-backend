@@ -8,5 +8,8 @@ export class ShoppingListAvgAggregateInput {
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
+    progress?: true;
+
+    @Field(() => Boolean, {nullable:true})
     author_id?: true;
 }

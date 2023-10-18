@@ -14,5 +14,8 @@ export class ShoppingListItemSumAggregateInput {
     unit_id?: true;
 
     @Field(() => Boolean, {nullable:true})
+    shopping_list_id?: true;
+
+    @Field(() => Boolean, {nullable:true})
     category_id?: true;
 }

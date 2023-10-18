@@ -14,6 +14,9 @@ export class ShoppingListCountAggregateInput {
     color?: true;
 
     @Field(() => Boolean, {nullable:true})
+    progress?: true;
+
+    @Field(() => Boolean, {nullable:true})
     author_id?: true;
 
     @Field(() => Boolean, {nullable:true})

@@ -15,7 +15,13 @@ export class ShoppingListItemCountAggregate {
     quantity!: number;
 
     @Field(() => Int, {nullable:false})
+    is_completed!: number;
+
+    @Field(() => Int, {nullable:false})
     unit_id!: number;
+
+    @Field(() => Int, {nullable:false})
+    shopping_list_id!: number;
 
     @Field(() => Int, {nullable:false})
     category_id!: number;

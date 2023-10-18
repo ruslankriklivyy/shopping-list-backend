@@ -15,7 +15,10 @@ export class ShoppingListCreateManyInput {
     color!: string;
 
     @Field(() => Int, {nullable:false})
-    author_id!: number;
+    progress!: number;
+
+    @Field(() => Int, {nullable:true})
+    author_id?: number;
 
     @Field(() => Date, {nullable:true})
     created_at?: Date | string;

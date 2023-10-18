@@ -5,6 +5,7 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserRelationFilter } from '../user/user-relation-filter.input';
 import { ShoppingListUserListRelationFilter } from '../shopping-list-user/shopping-list-user-list-relation-filter.input';
+import { ShoppingListItemListRelationFilter } from '../shopping-list-item/shopping-list-item-list-relation-filter.input';
 
 @InputType()
 export class ShoppingListWhereInput {
@@ -28,6 +29,9 @@ export class ShoppingListWhereInput {
     color?: StringFilter;
 
     @Field(() => IntFilter, {nullable:true})
+    progress?: IntFilter;
+
+    @Field(() => IntFilter, {nullable:true})
     author_id?: IntFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
@@ -41,4 +45,7 @@ export class ShoppingListWhereInput {
 
     @Field(() => ShoppingListUserListRelationFilter, {nullable:true})
     responsibles?: ShoppingListUserListRelationFilter;
+
+    @Field(() => ShoppingListItemListRelationFilter, {nullable:true})
+    shopping_list_items?: ShoppingListItemListRelationFilter;
 }

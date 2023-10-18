@@ -20,8 +20,14 @@ export class ShoppingListItemGroupBy {
     @Field(() => Float, {nullable:false})
     quantity!: number;
 
+    @Field(() => Boolean, {nullable:false})
+    is_completed!: boolean;
+
     @Field(() => Int, {nullable:false})
     unit_id!: number;
+
+    @Field(() => Int, {nullable:false})
+    shopping_list_id!: number;
 
     @Field(() => Int, {nullable:false})
     category_id!: number;

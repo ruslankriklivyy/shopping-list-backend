@@ -15,6 +15,9 @@ export class ShoppingListMinOrderByAggregateInput {
     color?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    progress?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     author_id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

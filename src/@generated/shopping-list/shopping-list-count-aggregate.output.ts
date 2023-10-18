@@ -15,6 +15,9 @@ export class ShoppingListCountAggregate {
     color!: number;
 
     @Field(() => Int, {nullable:false})
+    progress!: number;
+
+    @Field(() => Int, {nullable:false})
     author_id!: number;
 
     @Field(() => Int, {nullable:false})

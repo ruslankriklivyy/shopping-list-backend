@@ -15,8 +15,8 @@ export class Category {
     @Field(() => String, {nullable:false})
     name!: string;
 
-    @Field(() => Int, {nullable:false})
-    icon_id!: number;
+    @Field(() => Int, {nullable:true})
+    icon_id!: number | null;
 
     @Field(() => Date, {nullable:false})
     created_at!: Date;
@@ -24,8 +24,8 @@ export class Category {
     @Field(() => Date, {nullable:false})
     updated_at!: Date;
 
-    @Field(() => File, {nullable:false})
-    icon?: File;
+    @Field(() => File, {nullable:true})
+    icon?: File | null;
 
     @Field(() => [ShoppingListItem], {nullable:true})
     shopping_list_items?: Array<ShoppingListItem>;

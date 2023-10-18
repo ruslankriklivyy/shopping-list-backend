@@ -15,5 +15,8 @@ export class ShoppingListItemAvgAggregate {
     unit_id?: number;
 
     @Field(() => Float, {nullable:true})
+    shopping_list_id?: number;
+
+    @Field(() => Float, {nullable:true})
     category_id?: number;
 }

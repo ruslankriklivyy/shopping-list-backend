@@ -1,11 +1,11 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, GraphQLISODateTime, Int, ObjectType } from '@nestjs/graphql';
 import { User as UserModel } from '@prisma/client';
+
 import { Token } from '../token/token.model';
-import { IsOptional } from 'class-validator';
 
 @ObjectType()
 export class User {
-  @Field(() => Number)
+  @Field(() => Int)
   id: UserModel['id'];
 
   @Field(() => String)
@@ -17,13 +17,12 @@ export class User {
   @Field(() => String)
   password: UserModel['password'];
 
-  @Field(() => [Token])
-  @IsOptional()
+  @Field(() => [Token], { nullable: true })
   tokens?: Token[];
 
-  @Field(() => String)
+  @Field(() => GraphQLISODateTime)
   created_at: UserModel['created_at'];
 
-  @Field(() => String)
+  @Field(() => GraphQLISODateTime)
   updated_at: UserModel['updated_at'];
 }

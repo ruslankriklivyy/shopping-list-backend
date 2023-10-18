@@ -20,7 +20,10 @@ export class ShoppingListGroupBy {
     color!: string;
 
     @Field(() => Int, {nullable:false})
-    author_id!: number;
+    progress!: number;
+
+    @Field(() => Int, {nullable:true})
+    author_id?: number;
 
     @Field(() => Date, {nullable:false})
     created_at!: Date | string;

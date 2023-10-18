@@ -15,8 +15,8 @@ export class CategoryCreateInput {
     @Field(() => Date, {nullable:true})
     updated_at?: Date | string;
 
-    @Field(() => FileCreateNestedOneWithoutCategoriesInput, {nullable:false})
-    icon!: FileCreateNestedOneWithoutCategoriesInput;
+    @Field(() => FileCreateNestedOneWithoutCategoriesInput, {nullable:true})
+    icon?: FileCreateNestedOneWithoutCategoriesInput;
 
     @Field(() => ShoppingListItemCreateNestedManyWithoutCategoryInput, {nullable:true})
     shopping_list_items?: ShoppingListItemCreateNestedManyWithoutCategoryInput;

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { ShoppingListItemUncheckedUpdateManyWithoutShopping_listNestedInput } from '../shopping-list-item/shopping-list-item-unchecked-update-many-without-shopping-list-nested.input';
 
 @InputType()
 export class ShoppingListUncheckedUpdateWithoutResponsiblesInput {
@@ -15,6 +16,9 @@ export class ShoppingListUncheckedUpdateWithoutResponsiblesInput {
     color?: string;
 
     @Field(() => Int, {nullable:true})
+    progress?: number;
+
+    @Field(() => Int, {nullable:true})
     author_id?: number;
 
     @Field(() => Date, {nullable:true})
@@ -22,4 +26,7 @@ export class ShoppingListUncheckedUpdateWithoutResponsiblesInput {
 
     @Field(() => Date, {nullable:true})
     updated_at?: Date | string;
+
+    @Field(() => ShoppingListItemUncheckedUpdateManyWithoutShopping_listNestedInput, {nullable:true})
+    shopping_list_items?: ShoppingListItemUncheckedUpdateManyWithoutShopping_listNestedInput;
 }
